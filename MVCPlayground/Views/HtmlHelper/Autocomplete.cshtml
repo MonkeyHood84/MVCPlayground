@@ -1,0 +1,265 @@
+﻿@using MVCPlayground.Models.Extensions
+@model  MVCPlayground.Models.ViewModels.HtmlHelpers.AutocompleteModel
+@{
+    ViewBag.Title = "Autocomplete";
+}
+
+@section css {
+
+    <link href="~/Content/themes/base/jquery-ui.min.css"
+          rel="stylesheet"
+          type="text/css" />
+}
+
+<h2>Autocomplete</h2>
+<h3>JQuery UI Initialization</h3>
+<h4>Minimal Configuration (Source only)</h4>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CountryName, new { htmlAttributes = new { @class = "form-control" } })
+    </div>
+</div>
+<br />
+<h4>Label & Value</h4>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryCode, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CountryCode, new { htmlAttributes = new { @id = "ex2_hdn_value", @class = "form-control", @disabled = "true" } })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CountryName, new { htmlAttributes = new { @id = "ex2_txt_label", @class = "form-control" } })
+    </div>
+</div>
+<br />
+<h4>Source Function (instead of endpoint string)</h4>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryCode, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CountryCode, new { htmlAttributes = new { @id = "ex3_hdn_value", @class = "form-control", @disabled = "true" } })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CountryName, new { htmlAttributes = new { @id = "ex3_txt_label", @class = "form-control" } })
+    </div>
+</div>
+<br />
+<br />
+<h3>Html Helper Initialization</h3>
+<h4>Minimal Configuration (Source only)</h4>
+<p>It uses default functions for source and select. It also has the defaults settings for delay(500) and minLength(3)</p>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.AutocompleteFor("country-autocomplete-1", model => model.CountryName, model => model.CountryCode, new { @class = "form-control" })
+    </div>
+</div>
+<br />
+<h4>Showing LOADER while retrieving data</h4>
+<p>Same configuration but the endpoint delays the response 1 second to simulate a slow call and make loader visible</p>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.AutocompleteFor("country-autocomplete-2", model => model.CountryName, model => model.CountryCode, new { @class = "form-control" })
+    </div>
+</div>
+<br />
+<h4>Define NATIVE Options</h4>
+<p>Pass as a parameter the options of the native JQuery UI that will override the default and custom options of our module. In this case, the minLength has been overriden from 3 to 2.</p>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.AutocompleteFor("country-autocomplete-7", model => model.CountryName, model => model.CountryCode, new { @class = "form-control" })
+    </div>
+</div>
+<br />
+<h4>Override RETRIEVE source function</h4>
+<p>Altered the endpoint parameter name and defined a retrieve function to adjust it to it.</p>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.AutocompleteFor("country-autocomplete-3", model => model.CountryName, model => model.CountryCode, new { @class = "form-control" })
+    </div>
+</div>
+<br />
+<h4>Override PARSE source function</h4>
+<p>Altered the endpoint response to not return label or value. Defined a function to do the mapping.</p>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.AutocompleteFor("country-autocomplete-4", model => model.CountryName, model => model.CountryCode, new { @class = "form-control" })
+    </div>
+</div>
+<br />
+<h4>Override SELECT function</h4>
+<p>Defined an alternative select function so after selecting an element it sets the code instead of the name in the country textbox.</p>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.AutocompleteFor("country-autocomplete-5", model => model.CountryName, model => model.CountryCode, new { @class = "form-control" })
+    </div>
+</div>
+<br />
+<h4>Override SELECT EXTENSION function</h4>
+<p>Defined a method to catch when an item has been selected and it displays its value in an external textbox.</p>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryCode, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.CountryCode, new { htmlAttributes = new { @id = "ex6_txt_code", @class = "form-control", @disabled = "true" } })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.AutocompleteFor("country-autocomplete-6", model => model.CountryName, model => model.CountryCode, new { @class = "form-control" })
+    </div>
+</div>
+
+
+@section Scripts {
+    <script src="~/Scripts/jquery-ui.min.js"></script>
+    <script src="~/Scripts/app/autocomplete.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function() {
+
+            //Basic
+            $('#CountryName').autocomplete({
+                source: '/htmlhelper/getcountries'
+            });
+
+            $('#ex2_txt_label').autocomplete({
+                source: '/htmlhelper/getcountries',
+                select: function(event, ui) {
+                    console.log('Example 2: Item Selected', ui.item);
+                    //set tagids to save
+                    $("#ex2_hdn_value").val(ui.item.value);
+                    //Tags for display
+                    this.value = ui.item.label;
+                    return false;
+                }
+            });
+
+            $('#ex3_txt_label').autocomplete({
+                source: function(request, response) {
+                    console.log('SEARCH_STARTED');
+                    $.post('/htmlhelper/getcountries', { term: request.term }, 'json')
+                        .done(function(data) {
+                            console.log('SEARCH_ENDED');
+                            //map data if needed
+                            response(data);
+                        });
+                },
+                select: function(event, ui) {
+                    console.log('Example 3: Item Selected', ui.item);
+                    //set tagids to save
+                    $("#ex3_hdn_value").val(ui.item.value);
+                    //Tags for display
+                    this.value = ui.item.label;
+                    return false;
+                }
+            });
+
+            //HtmlHelper
+            var countryEndpoint = "@(Url.Action("GetCountries", "Htmlhelper"))";
+            mh84.utils.autocomplete.init('#country-autocomplete-1', countryEndpoint);
+
+
+            var countryDelayEndpoint = "@(Url.Action("GetCountriesWithDelay", "Htmlhelper"))";
+            mh84.utils.autocomplete.init('#country-autocomplete-2', countryDelayEndpoint);
+
+            mh84.utils.autocomplete.init('#country-autocomplete-7',
+                countryEndpoint, { minLength: 2 });
+
+            var countryRetrieveEndpoint = "@(Url.Action("GetCountriesWithDifferentImput", "Htmlhelper"))";
+            var source3fn = function(request, response) {
+                console.log('overriding function', request.term);
+                var promise =
+                    $.post(countryRetrieveEndpoint, { 'searchTerm': request.term }, 'json')
+                        .fail(function() {
+                            console.error('Error retriving the autocomplete source.');
+                        });
+                return promise;
+            };
+            mh84.utils.autocomplete.init('#country-autocomplete-3', source3fn);
+
+
+            var countryParseEndpoint = "@(Url.Action("GetCountriesWithoutMapping", "Htmlhelper"))";
+            var parse4fn = function(data) {
+                return $.map(data,
+                    function(val) {
+                        return Object.assign({},
+                            val,
+                            {
+                                id: val.code,
+                                value: val.name ? val.name : val.code
+                            });
+                    });
+            };
+            mh84.utils.autocomplete.init('#country-autocomplete-4',
+                countryParseEndpoint, {},
+                {
+                    fnParseSource: parse4fn
+                });
+
+
+            var select5fn = function(event, ui) {
+                //Tags for display
+                this.value = ui.item.id;
+                return false;
+            };
+            mh84.utils.autocomplete.init('#country-autocomplete-5',
+                countryEndpoint, undefined,
+                {
+                    selectFn: select5fn
+                });
+
+
+            var externalSelect6fn = function(item) {
+                var valueElement = $("#ex6_txt_code");
+                valueElement.val(item.id);
+            };
+            mh84.utils.autocomplete.init('#country-autocomplete-6',
+                countryEndpoint, null,
+                {
+                    externalSelectFn: externalSelect6fn
+                });
+
+
+
+
+
+    });
+
+    </script>
+}

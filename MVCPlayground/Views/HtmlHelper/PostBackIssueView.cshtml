@@ -1,0 +1,56 @@
+﻿@model  MVCPlayground.Models.ViewModels.HtmlHelpers.PostbackIssueModel
+<h2>Postback Issue View</h2>
+@using (Html.BeginForm("PostBackIssue_Save", "HtmlHelper", FormMethod.Post, new { onkeydown = "return event.keyCode!=13" }))
+{
+    <div class="row">
+        <div class="form-group col-md-9 col-md-offset-1">
+            @if (!ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-danger" role="alert">
+                    <span class="glyphicon glyphicon-exclamation-sign" aria-hidden="true"></span>
+                    <span class="sr-only">Error: </span>
+                    @Html.ValidationMessageFor(m => m.Name)
+                    @Html.ValidationMessage("")
+                </div>
+            }
+            @if (TempData["message"] != null && ViewData.ModelState.IsValid)
+            {
+                <div class="alert alert-success">
+                    <span class="glyphicon glyphicon-thumbs-up" aria-hidden="true"></span>
+                    @TempData["message"]
+                </div>
+            }
+        </div>
+    </div>
+
+    <div class="row">
+
+        <div class="form-group col-md-1 col-md-offset-1">
+            @Html.LabelFor(m => m.Name, new { @class = "control-label" })
+        </div>
+        <div class="form-group col-md-8">
+            @Html.TextBoxFor(m => m.Name, new { @id = "it03", @class = "form-control", @style = "max-width: inherit" })
+        </div>
+    </div>
+
+    <div class="row">
+        <div class=" form-group col-md-1 col-md-offset-1">
+            @Html.Label("Gender", new { @class = "control-label" })
+        </div>
+        <div class="form-group col-md-8">
+            @Html.RadioButtonFor(m => m.IsMale, true, new { @id = "gender_male", @name = "gender" })
+            <span>Male</span>
+            @Html.RadioButtonFor(m => m.IsMale, false, new { @id = "gender_female", @name = "gender" })
+            <span>Female</span>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-9 col-md-offset-1" style="text-align: right">
+            <span>
+                <input type="submit" value="Clear" name="action:Clear" class="btn" style="width:90px" />
+                <input type="submit" value="Save" name="action:Save" class="btn btn-primary" style="width: 90px" />
+            </span>
+        </div>
+    </div>
+}
