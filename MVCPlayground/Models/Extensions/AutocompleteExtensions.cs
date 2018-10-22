@@ -26,6 +26,7 @@ namespace MVCPlayground.Models.Extensions
                     + hdnValue.ToString()
                     + txtLabel.ToString()
                     + "<span class=\"input-group-addon\">"
+                      + "<i class=\"glyphicon glyphicon-remove autocomplete_icon_remove\" style=\"display: none\"></i>"
                       + "<i class=\"glyphicon glyphicon-search autocomplete_icon_search\"></i>"
                       + "<span class=\"btn-loader autocomplete_icon_loading\" style=\"display: none\">&nbsp;&nbsp;&nbsp;&nbsp;</span>"
                     + "</span>"

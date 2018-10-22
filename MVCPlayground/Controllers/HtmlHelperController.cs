@@ -21,6 +21,8 @@ namespace MVCPlayground.Controllers
         public async Task<ActionResult> Autocomplete()
         {
             AutocompleteModel model = new AutocompleteModel();
+            model.DefaultCountryCode = "CAT";
+            model.DefaultCountryName = "Catalunya";
             return View("Autocomplete", model);
         }
 

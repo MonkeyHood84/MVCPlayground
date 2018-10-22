@@ -145,6 +145,59 @@
         @Html.AutocompleteFor("country-autocomplete-6", model => model.CountryName, model => model.CountryCode, new { @class = "form-control" })
     </div>
 </div>
+<br />
+<h4>Preselected value</h4>
+<p>When it has a defined value, it has to display it and block it.</p>
+<p><strong>Note</strong>: Readonly not disabled (skips postback model update)</p>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryCode, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.DefaultCountryCode, new { htmlAttributes = new { @id = "ex8_txt_code", @class = "form-control", @disabled = "true" } })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.AutocompleteFor("country-autocomplete-8", model => model.DefaultCountryName, model => model.DefaultCountryCode, new { @class = "form-control" })
+    </div>
+</div>
+<br />
+<h4>Override CLEAR EXTENSION function</h4>
+<p>When unselecting an item by clicking the 'X' button. It has to clear the item and trigger the external function to handle this. For example, in the previous example the Country Code only gets updated when selected, NOT when removing.</p>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryCode, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.EditorFor(model => model.DefaultCountryCode, new { htmlAttributes = new { @id = "ex9_txt_code", @class = "form-control", @disabled = "true" } })
+    </div>
+</div>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-10">
+        @Html.AutocompleteFor("country-autocomplete-9", model => model.DefaultCountryName, model => model.DefaultCountryCode, new { @class = "form-control" })
+    </div>
+</div>
+<br />
+<h4>External Reset</h4>
+<p>That allows to clear the autocomplete from the outside. </p>
+<div class="row">
+    <div class="col-md-2">
+        @Html.LabelFor(model => model.CountryName, htmlAttributes: new { @class = "control-label" })
+    </div>
+    <div class="col-md-9">
+        @Html.AutocompleteFor("country-autocomplete-10", model => model.DefaultCountryName, model => model.DefaultCountryCode, new { @class = "form-control" })
+    </div>
+    <div class="col-md-1">
+        <button id="btn-10" class="btn">Reset</button>
+    </div>
+</div>
 
 
 @section Scripts {
@@ -255,11 +308,46 @@
                     externalSelectFn: externalSelect6fn
                 });
 
+            var externalSelect8fn = function (item) {
+                var valueElement = $("#ex8_txt_code");
+                valueElement.val(item.id);
+            };
+
+            mh84.utils.autocomplete.init('#country-autocomplete-8',
+                countryEndpoint, null,
+                {
+                    externalSelectFn: externalSelect8fn
+                });
+
+            var externalSelect9fn = function (item) {
+                var valueElement = $("#ex9_txt_code");
+                valueElement.val(item.id);
+            };
+
+            var externalClear9fn = function(text, value) {
+                var valueElement = $("#ex9_txt_code");
+                console.log('Clear', text, value);
+                valueElement.val("");
+            }
+
+            mh84.utils.autocomplete.init('#country-autocomplete-9',
+                countryEndpoint, null,
+                {
+                    externalSelectFn: externalSelect9fn,
+                    externalClearFn: externalClear9fn
+                });
 
 
 
+            var autocomplete10 = mh84.utils.autocomplete.init('#country-autocomplete-10',
+                countryEndpoint, null, null);
 
-    });
+            $("#btn-10").click(function () {
+                autocomplete10.clear();
+            });
+
+
+        });
 
     </script>
 }

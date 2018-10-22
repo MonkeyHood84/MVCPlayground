@@ -148,6 +148,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Controllers\PartialContentController.cs" />
     <Compile Include="Controllers\HtmlHelperController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Customizations\MultipleButtonAttribute.cs" />
@@ -156,9 +157,13 @@
     </Compile>
     <Compile Include="Models\Autocomplete\Country.cs" />
     <Compile Include="Models\Extensions\AutocompleteExtensions.cs" />
+    <Compile Include="Models\Extensions\ControllerExtensions.cs" />
     <Compile Include="Models\Extensions\StringExtensions.cs" />
+    <Compile Include="Models\PartialContent\Dish.cs" />
+    <Compile Include="Models\PartialContent\Restaurant.cs" />
     <Compile Include="Models\ViewModels\HtmlHelpers\AutocompleteModel.cs" />
     <Compile Include="Models\ViewModels\HtmlHelpers\PostbackIssueModel.cs" />
+    <Compile Include="Models\ViewModels\PartialContent\FeedbackModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -186,11 +191,13 @@
     <Content Include="Scripts\jquery-3.3.1.slim.min.js" />
     <None Include="Scripts\jquery.validate-vsdoc.js" />
     <Content Include="Scripts\jquery-ui.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="Scripts\object-assign.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -208,6 +215,10 @@
     <Content Include="Views\HtmlHelper\PostBackIssueView.cshtml" />
     <Content Include="Views\HtmlHelper\Autocomplete.cshtml" />
     <Content Include="Views\HtmlHelper\Index.cshtml" />
+    <Content Include="Views\PartialContent\PartialViews.cshtml" />
+    <Content Include="Views\PartialContent\_partialListItems.cshtml" />
+    <Content Include="Views\PartialContent\FeedbackMessage.cshtml" />
+    <Content Include="Views\PartialContent\BasicCases.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
