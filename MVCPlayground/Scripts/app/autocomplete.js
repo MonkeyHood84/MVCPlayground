@@ -60,7 +60,7 @@ mh84.utils.autocomplete.defaultRetrieveSourceFn = function (endpoint, rootElem) 
     return function (request, response) {
         var promise =
             $.post(endpoint, { term: request.term }, 'json')
-                .success(function() {
+                .done(function() {
                     rootElem.searchedValue = request.term;
                 })
                 .fail(function () {
