@@ -171,7 +171,6 @@ mh84.utils.autocomplete.init = function (elementId, sourceFn, uiOptions, options
 
     var autocompleteElem = labelElement.autocomplete(autocompleteOptions);
     autocompleteElem.focus(function () {
-
         mh84.utils.autocomplete.openList(rootElem, $(this));
     });
 
