@@ -3,7 +3,7 @@ mh84.utils = mh84.utils || {};
 mh84.utils.autocomplete = {};
 
 
-mh84.utils.autocomplete.getValueElement = function(rootElem) {
+mh84.utils.autocomplete.getValueElement = function (rootElem) {
     return rootElem.find(".autocomplete_hdn_value");
 };
 
@@ -56,10 +56,13 @@ mh84.utils.autocomplete.changeState = function (rootElem, state) {
     }
 };
 
-mh84.utils.autocomplete.defaultRetrieveSourceFn = function (endpoint) {
+mh84.utils.autocomplete.defaultRetrieveSourceFn = function (endpoint, rootElem) {
     return function (request, response) {
         var promise =
             $.post(endpoint, { term: request.term }, 'json')
+                .success(function() {
+                    rootElem.searchedValue = request.term;
+                })
                 .fail(function () {
                     console.error('Error retriving the autocomplete source.');
                 });
@@ -74,7 +77,7 @@ mh84.utils.autocomplete.defaultParseSourceFn = function (data) {
             {
                 id: val.value,
                 value: val.label ? val.label : val.value
-        });
+            });
     });
 }
 
@@ -83,7 +86,7 @@ mh84.utils.autocomplete.retrieveSource = function (rootElem, sourceFn, options) 
     if (typeof sourceFn === "function") {
         fnSource = sourceFn;
     } else {
-        fnSource = mh84.utils.autocomplete.defaultRetrieveSourceFn(sourceFn);
+        fnSource = mh84.utils.autocomplete.defaultRetrieveSourceFn(sourceFn, rootElem);
     }
 
     var fnParse;
@@ -141,8 +144,10 @@ mh84.utils.autocomplete.defaultOptions = {
     delay: 500
 };
 
-mh84.utils.autocomplete.openList = function () {
-    $(this).autocomplete("widget").show();
+mh84.utils.autocomplete.openList = function (rootElem, autocompleteElem ) {
+    if ((rootElem.searchedValue || '').includes(autocompleteElem.val())) {
+        autocompleteElem.autocomplete("widget").show();
+    }
 }
 
 mh84.utils.autocomplete.init = function (elementId, sourceFn, uiOptions, options) {
@@ -164,8 +169,11 @@ mh84.utils.autocomplete.init = function (elementId, sourceFn, uiOptions, options
         uiOptions
     );
 
-    labelElement.autocomplete(autocompleteOptions)
-        .focus(mh84.utils.autocomplete.openList);
+    var autocompleteElem = labelElement.autocomplete(autocompleteOptions);
+    autocompleteElem.focus(function () {
+
+        mh84.utils.autocomplete.openList(rootElem, $(this));
+    });
 
     rootElem.clear = function() {
         mh84.utils.autocomplete.changeState(rootElem, 'ITEM_REMOVED');
@@ -180,5 +188,4 @@ mh84.utils.autocomplete.init = function (elementId, sourceFn, uiOptions, options
     }
 
     return rootElem;
-
 };
